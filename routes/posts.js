@@ -4,14 +4,33 @@ const posts = require('../data/posts')
 const { error } = require('console')
 
 
-// index
+/* index
 
 router.get('/', (req, res) => {
+
 
     res.json(posts)
     console.log(req);
 
+}) */
+
+
+// CRUD INDEX BONUS
+
+router.get('/', (req, res) => {
+    let filteredPost = posts
+
+    if (req.query.tag) {
+        filteredPost = posts.filter((post) => {
+
+            return post.tags.includes(req.query.tag)
+        })
+    }
+
+    res.json(filteredPost)
 })
+
+
 
 // show
 
@@ -31,7 +50,6 @@ router.get('/:id', (req, res) => {
             message: "Post non trovato"
         })
     }
-
     res.json(post)
     console.log(post)
 })
@@ -45,12 +63,11 @@ router.delete('/:id', (req, res) => {
         return post.id === id
     })
     console.log(post)
-    posts.splice(posts.indexOf(post), 1)
 
 
     if (!post) {
 
-        res.status(404)
+
 
         return res.status(404).json(
 
@@ -62,12 +79,16 @@ router.delete('/:id', (req, res) => {
     }
 
 
-    res.sendStatus(204)
+    posts.splice(posts.indexOf(post), 1)
 
     console.log(posts);
 
+    res.sendStatus(204)
+
+
 
 })
+
 
 
 module.exports = router;
