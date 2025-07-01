@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
 }) */
 
 
-// CRUD INDEX BONUS
+// CRUD INDEX 
 
 router.get('/', (req, res) => {
     let filteredPost = posts
@@ -63,21 +63,11 @@ router.delete('/:id', (req, res) => {
         return post.id === id
     })
     console.log(post)
-
-
     if (!post) {
-
-
-
-        return res.status(404).json(
-
-            {
-                message: `Post with ${id} not found`
-            }
-
-        )
+        return res.status(404).json({
+            message: `Post with ${id} not found`
+        })
     }
-
 
     posts.splice(posts.indexOf(post), 1)
 
