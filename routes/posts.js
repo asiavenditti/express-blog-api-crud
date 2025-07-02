@@ -83,7 +83,6 @@ router.delete('/:id', (req, res) => {
 // store 
 
 
-
 router.post('/', (req, res) => {
 
     console.log(req.body, 'Body')
@@ -112,9 +111,32 @@ router.post('/', (req, res) => {
     res.json(newPost)
 });
 
-
-
 // update
+
+router.patch('/:id', (req, res) => {
+
+    const id = parseInt(req.params.id)
+
+    const post = posts.find(post => post.id === id)
+
+
+    if (!post) {
+        return res.status(404).json({
+            error: 'Not Found',
+            message: `Post non trovato`
+        })
+    }
+
+    post.title = req.body.title
+    post.image = req.body.image
+    post.content = req.body.content
+    post.tags = req.body.tags
+
+
+    console.log(posts)
+    res.json(post)
+})
+
 
 
 module.exports = router;
