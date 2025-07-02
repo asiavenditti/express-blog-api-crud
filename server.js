@@ -3,6 +3,9 @@ const app = express()
 const port = process.env.PORT || 3001
 const postsRouter = require('./routes/posts')
 
+app.use(express.json());
+
+
 app.use(express.static('public'))
 
 app.listen(port, () => {
@@ -18,3 +21,6 @@ app.get('/', (req, res) => {
 })
 
 app.use('/posts', postsRouter);
+
+
+

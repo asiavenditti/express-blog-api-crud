@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const posts = require('../data/posts')
-const { error } = require('console')
+const { error, log } = require('console')
 
 
 /* index
@@ -79,6 +79,42 @@ router.delete('/:id', (req, res) => {
 
 })
 
+
+// store 
+
+
+
+router.post('/', (req, res) => {
+
+    console.log(req.body, 'Body')
+
+    const newId = posts[posts.length - 1].id + 1
+    console.log(newId);
+
+
+
+    const newPost = {
+        id: newId,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags
+    };
+
+
+    posts.push(newPost)
+
+
+    console.log(posts)
+
+
+    res.status(201)
+    res.json(newPost)
+});
+
+
+
+// update
 
 
 module.exports = router;
