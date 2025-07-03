@@ -79,6 +79,8 @@ const update = (req, res) => {
     res.json(post);
 }
 
+
+
 module.exports = {
     index,
     show,
